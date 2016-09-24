@@ -1,0 +1,8 @@
+|script                                          |
+|given there is a mentor who knows    |ruby      |
+|given there is a mentor who knows    |javascript|
+|given there is a mentor who knows    |ruby      |
+|when presenting available mentors for|ruby      |
+|then available mentors count is      |2         |
+|when presenting available mentors for|javascript|
+|then available mentors count is      |1         |

@@ -1,0 +1,21 @@
+!define TEST_SYSTEM {slim}
+!path ./build/classes/main/
+!path ./build/libs/learn-1.0-SNAPSHOT.jar
+
+!1 Software Mentor Application
+
+It helps mentees find the mentor and helps mentors to be found by mentees.
+
+!2 Usecases
+
+>AsMenteeIcanFindMentor
+>NoMentorsToBeFound
+
+>AsGuestIcantApplyForMentorship
+>AsLoggedInMenteeIcanApplyForMentorship
+
+>InitiallyMenteeHasNoMentorshipRequests
+
+!2 Misc
+
+> SetUp

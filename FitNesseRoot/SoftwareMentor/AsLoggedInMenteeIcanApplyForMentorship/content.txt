@@ -1,0 +1,8 @@
+|script                                          |
+|given user is a mentee                          |
+|given there is a mentor who knows       |ruby   |
+|when presenting available mentors for   |ruby   |
+|when applying for mentorship with mentor|1      |
+|then the response is                    |SUCCESS|
+|when presenting mentorship requests             |
+|then count of mentorship requests is    |1      |

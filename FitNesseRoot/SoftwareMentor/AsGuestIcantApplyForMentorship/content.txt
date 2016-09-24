@@ -1,0 +1,6 @@
+|script                                                  |
+|given user is a guest                                   |
+|given there is a mentor who knows       |javascript     |
+|when presenting available mentors for   |javascript     |
+|when applying for mentorship with mentor|1              |
+|then the response is                    |NEED_TO_SIGN_IN|

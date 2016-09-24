@@ -1,0 +1,3 @@
+package softwarementor.fixtures
+
+annotation class AcceptanceMethod

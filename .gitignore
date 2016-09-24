@@ -1,0 +1,7 @@
+/.gradle/
+/.idea/
+/build/
+/FitNesseRoot/files/
+/FitNesseRoot/FitNesse/
+/FitNesseRoot/ErrorLog
+*.zip

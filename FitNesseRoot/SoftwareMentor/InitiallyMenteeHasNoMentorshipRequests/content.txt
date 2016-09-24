@@ -1,0 +1,4 @@
+|script                                |
+|given user is a mentee                |
+|when presenting mentorship requests   |
+|then count of mentorship requests is|0|

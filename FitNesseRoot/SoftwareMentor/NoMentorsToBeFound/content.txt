@@ -1,0 +1,4 @@
+|script                                          |
+|given there are no mentors                      |
+|when presenting available mentors for|javascript|
+|then available mentors count is      |0         |

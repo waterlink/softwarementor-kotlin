@@ -1,0 +1,5 @@
+|import                 |
+|softwarementor.fixtures|
+
+|script                                             |
+|start|softwarementor.fixtures.SoftwareMentorFixture|
