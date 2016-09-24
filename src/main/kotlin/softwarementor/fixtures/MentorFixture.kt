@@ -12,9 +12,9 @@ interface MentorFixture {
     var availableMentors: List<PresentedMentor>?
 
     @AcceptanceMethod
-    fun givenThereIsAMentorWhoKnows(language: String): Boolean {
-        gateway.save(Mentor(language))
-        return gateway.findAllMentors().last().language == language
+    fun givenThereIsAMentorWithNameWhoKnows(name: String, language: String): Boolean {
+        gateway.save(Mentor(language, name, "NO_PASSWORD"))
+        return gateway.findAllMentors().last().name == name
     }
 
     @AcceptanceMethod

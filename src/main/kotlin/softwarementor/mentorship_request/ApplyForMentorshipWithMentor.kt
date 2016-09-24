@@ -2,15 +2,16 @@ package softwarementor.mentorship_request
 
 import softwarementor.Context
 import softwarementor.mentor.Mentor
-import softwarementor.user.NeedToSignIn
-import softwarementor.mentorship_request.MentorshipRequest
+import softwarementor.mentee.Mentee
+import softwarementor.login.NeedToSignIn
 
 class ApplyForMentorshipWithMentor {
     fun applyForMentorshipWith(mentor: Mentor) {
-        if (Context.currentUserRepository.isGuest())
+        if (Context.currentMenteeRepository.isGuest())
             throw NeedToSignIn()
 
-        Context.gateway.save(MentorshipRequest(mentor))
+        val mentee = Context.currentMenteeRepository.currentMentee!!
+        Context.gateway.save(MentorshipRequest(mentee, mentor))
     }
 
 }

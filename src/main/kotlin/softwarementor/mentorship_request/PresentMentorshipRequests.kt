@@ -4,7 +4,8 @@ import softwarementor.Context
 
 class PresentMentorshipRequests {
     fun presentMyMentorshipRequests(): List<PresentedMentorshipRequest> {
-        return Context.gateway.findAllMentorshipRequests().map {
+        val mentee = Context.currentMenteeRepository.currentMentee!!
+        return Context.gateway.findMentorshipRequestsByMentee(mentee).map {
             PresentedMentorshipRequest()
         }
     }

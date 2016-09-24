@@ -1,9 +1,11 @@
 package softwarementor
 
-import softwarementor.user.CurrentUserRepository
+import softwarementor.mentee.CurrentMenteeRepository
 import softwarementor.Gateway
+import softwarementor.mentor.CurrentMentorRepository
 
 object Context {
     lateinit var gateway: Gateway
-    lateinit var currentUserRepository: CurrentUserRepository
+    lateinit var currentMenteeRepository: CurrentMenteeRepository
+    lateinit var currentMentorRepository: CurrentMentorRepository
 }

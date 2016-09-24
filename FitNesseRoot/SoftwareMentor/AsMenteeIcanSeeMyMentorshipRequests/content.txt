@@ -1,0 +1,7 @@
+|script                                                             |
+|given there is a mentee with name       |John                      |
+|given there is a mentor with name       |Alice|who knows|javascript|
+|given there is a mentorship request from|John |to       |Alice     |
+|given user is                           |John                      |
+|when presenting mentorship requests                                |
+|then count of mentorship requests is    |1                         |

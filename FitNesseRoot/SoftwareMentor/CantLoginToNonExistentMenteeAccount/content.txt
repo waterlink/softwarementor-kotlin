@@ -1,0 +1,8 @@
+|script                                                                  |
+|given there is a mentee with name|John      |and password|welcome       |
+|when logging in with name        |John      |and password|WRONG_PASSWORD|
+|check                            |response  |INVALID_NAME_PASSWORD      |
+|when logging in with name        |WRONG_NAME|and password|welcome       |
+|check                            |response  |INVALID_NAME_PASSWORD      |
+|when logging in with name        |WRONG_NAME|and password|WRONG_PASSWORD|
+|check                            |response  |INVALID_NAME_PASSWORD      |

@@ -1,0 +1,5 @@
+|script                                                                   |
+|given there is a mentor with name    |John          |and password|welcome|
+|when logging in as a mentor with name|John          |and password|welcome|
+|check                                |response      |SUCCESS             |
+|check                                |current mentor|John                |
