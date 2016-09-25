@@ -14,9 +14,7 @@ class InMemoryUserConfirmationGateway : UserConfirmationGateway {
         val name = userConfirmation.name
         val code = userConfirmation.code
 
-        fun constructUserConfirmation(): UserConfirmation {
-            return UserConfirmation(name, code)
-        }
+        fun constructUserConfirmation() = UserConfirmation(name, code)
 
     }
 

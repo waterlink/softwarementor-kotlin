@@ -11,7 +11,7 @@ class InMemoryMentorGateway : MentorGateway {
             entities[name]?.constructMentor()
 
     override fun findAll() = entities.values
-            .map { it.constructMentor() }
+            .map(MentorStoredInMemory::constructMentor)
 
     override fun findByLanguage(language: String) =
             findAll().filter { it.language == language }
@@ -24,9 +24,7 @@ class InMemoryMentorGateway : MentorGateway {
         val name = mentor.name
         val language = mentor.language
 
-        fun constructMentor(): Mentor {
-            return Mentor(name, language)
-        }
+        fun constructMentor() = Mentor(name, language)
 
     }
 

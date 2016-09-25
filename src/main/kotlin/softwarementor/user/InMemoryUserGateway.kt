@@ -7,9 +7,8 @@ class InMemoryUserGateway : UserGateway {
         entities[user.name] = UserStoredInMemory(user)
     }
 
-    override fun findByName(name: String): User? {
-        return entities[name]?.constructUser()
-    }
+    override fun findByName(name: String) =
+            entities[name]?.constructUser()
 
     private class UserStoredInMemory(user: User) {
         val name = user.name
