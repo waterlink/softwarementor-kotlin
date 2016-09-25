@@ -1,13 +1,23 @@
 package softwarementor.signup
 
 class InMemoryUserConfirmationGateway : UserConfirmationGateway {
-    private val entities: MutableList<UserConfirmation> = mutableListOf()
+    private val entities: MutableMap<String, UserConfirmationStoredInMemory> = mutableMapOf()
 
     override fun save(userConfirmation: UserConfirmation) {
-        entities.add(userConfirmation)
+        entities[userConfirmation.code] = UserConfirmationStoredInMemory(userConfirmation)
     }
 
     override fun findByCode(code: String) =
-            entities.find { it.code == code }
+            entities[code]?.constructUserConfirmation()
+
+    class UserConfirmationStoredInMemory(userConfirmation: UserConfirmation) {
+        val name = userConfirmation.name
+        val code = userConfirmation.code
+
+        fun constructUserConfirmation(): UserConfirmation {
+            return UserConfirmation(name, code)
+        }
+
+    }
 
 }
