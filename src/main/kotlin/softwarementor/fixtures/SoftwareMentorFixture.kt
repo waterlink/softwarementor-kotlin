@@ -14,6 +14,8 @@ import softwarementor.mentorship_request.PresentMentorshipRequests
 import softwarementor.mentorship_request.PresentedMentorshipRequest
 import softwarementor.signup_mentee.MenteeConfirmationEmailService
 import softwarementor.signup_mentee.SignUpMentee
+import softwarementor.signup_mentor.MentorConfirmationEmailService
+import softwarementor.signup_mentor.SignUpMentor
 
 class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixture, LoginFixture, SignUpFixture {
     override val gateway: Gateway = InMemoryGateway()

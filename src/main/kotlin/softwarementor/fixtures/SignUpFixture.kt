@@ -1,12 +1,11 @@
 package softwarementor.fixtures
 
-import softwarementor.Context
-import softwarementor.mentor.Mentor
 import softwarementor.signup.InvalidConfirmationCode
 import softwarementor.signup.UserAlreadyRegistered
 import softwarementor.signup_mentee.MenteeConfirmationEmailService
 import softwarementor.signup_mentee.SignUpMentee
-import java.util.*
+import softwarementor.signup_mentor.MentorConfirmationEmailService
+import softwarementor.signup_mentor.SignUpMentor
 
 interface SignUpFixture {
     val menteeConfirmationEmailService: MenteeConfirmationEmailService
@@ -78,38 +77,4 @@ interface SignUpFixture {
     fun lastMentorConfirmationEmailSCode(): String {
         return mentorConfirmationEmailService.lastEmailSent.confirmationCode
     }
-}
-
-class MentorConfirmationEmailService {
-    var lastEmailSent = MentorConfirmationEmail("NOBODY", "CONFIRMATION_CODE")
-
-    fun sendConfirmationEmail(email: String, name: String, confirmationCode: String) {
-        lastEmailSent = MentorConfirmationEmail(email, confirmationCode)
-    }
-}
-
-class MentorConfirmationEmail(val email: String, val confirmationCode: String) {
-
-}
-
-class SignUpMentor(private val mentorConfirmationEmailService: MentorConfirmationEmailService) {
-
-    fun signUp(name: String, email: String, password: String) {
-        val mentor = Mentor(name, email, password, "");
-        Context.gateway.save(mentor)
-
-        val code = UUID.randomUUID().toString()
-        Context.gateway.save(MentorConfirmation(name, code))
-        mentorConfirmationEmailService.sendConfirmationEmail(email, name, code)
-    }
-
-    fun confirm(confirmationCode: String) {
-        val mentorConfirmation = Context.gateway.findMentorConfirmationByCode(confirmationCode)
-        val mentor = Context.gateway.findMentorByName(mentorConfirmation!!.mentorName)
-        mentor?.isConfirmed = true
-    }
-}
-
-class MentorConfirmation(val mentorName: String, val code: String) {
-
 }

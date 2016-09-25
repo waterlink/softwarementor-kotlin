@@ -1,6 +1,6 @@
 package softwarementor
 
-import softwarementor.fixtures.MentorConfirmation
+import softwarementor.signup_mentor.MentorConfirmation
 import softwarementor.signup_mentee.MenteeConfirmation
 import softwarementor.mentor.Mentor
 import softwarementor.mentorship_request.MentorshipRequest
