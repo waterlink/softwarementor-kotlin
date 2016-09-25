@@ -36,6 +36,18 @@ It helps mentees find the mentor and helps mentors to be found by mentees.
 >LoginToMentorAccount
 >CantLoginToNonExistentMentorAccount
 
+!3 Sign Up
+
+!4 Signing up as Mentee
+
+>SignUpForMenteeAccount
+>CantSignUpMenteeAccountNameAlreadyTaken
+
+!4 Signing up as Mentor
+
+>SignUpForMentorAccount
+>CantSignUpMentorAccountNameAlreadyTaken
+
 !2 Misc
 
 > SetUp

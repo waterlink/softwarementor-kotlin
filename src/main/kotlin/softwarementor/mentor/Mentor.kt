@@ -1,5 +1,6 @@
 package softwarementor.mentor
 
-class Mentor(val language: String, val name: String, val password: String) {
+class Mentor(val name: String, val email: String, val password: String, val language: String) {
     var id: String? = null
+    var isConfirmed = false
 }

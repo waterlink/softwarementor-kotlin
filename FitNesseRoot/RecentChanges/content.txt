@@ -1,5 +1,9 @@
+|SoftwareMentor.SignUpForMentorAccount||13:48:39 Sun, Sep 25, 2016|
+|SetUp||13:25:21 Sun, Sep 25, 2016|
+|SoftwareMentor.SignUpForMenteeAccount||13:16:00 Sun, Sep 25, 2016|
+|SoftwareMentor.CantSignUpMenteeAccountNameAlreadyTaken||12:43:40 Sun, Sep 25, 2016|
+|SoftwareMentor||12:10:49 Sun, Sep 25, 2016|
 |SoftwareMentor.CantLoginToNonExistentMentorAccount||22:06:58 Sat, Sep 24, 2016|
-|SoftwareMentor||22:05:14 Sat, Sep 24, 2016|
 |SoftwareMentor.LoginToMentorAccount||21:51:14 Sat, Sep 24, 2016|
 |SoftwareMentor.CantLoginToNonExistentAccount||21:38:15 Sat, Sep 24, 2016|
 |SoftwareMentor.AsLoggedInMenteeIcanApplyForMentorship||21:34:04 Sat, Sep 24, 2016|
@@ -8,7 +12,6 @@
 |SoftwareMentor.AsMenteeIcanFindMentor||21:00:54 Sat, Sep 24, 2016|
 |SoftwareMentor.AsMenteeIcantSeeOthersMentorshipRequests||20:48:33 Sat, Sep 24, 2016|
 |SoftwareMentor.AsMenteeIcanSeeMyMentorshipRequests||20:27:40 Sat, Sep 24, 2016|
-|SetUp||19:59:24 Sat, Sep 24, 2016|
 |SoftwareMentor.InitiallyMenteeHasNoMentorshipRequests||12:52:46 Sat, Sep 24, 2016|
 |SoftwareMentor.NoMentorsToBeFound||11:40:34 Sat, Sep 24, 2016|
 |NoMentorsToBeFound||18:59:08 Thu, Sep 22, 2016|

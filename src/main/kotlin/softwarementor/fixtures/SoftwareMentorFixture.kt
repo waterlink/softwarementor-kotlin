@@ -12,8 +12,10 @@ import softwarementor.mentor.PresentAvailableMentorsForLanguage
 import softwarementor.mentor.PresentedMentor
 import softwarementor.mentorship_request.PresentMentorshipRequests
 import softwarementor.mentorship_request.PresentedMentorshipRequest
+import softwarementor.signup_mentee.MenteeConfirmationEmailService
+import softwarementor.signup_mentee.SignUpMentee
 
-class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixture, LoginFixture {
+class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixture, LoginFixture, SignUpFixture {
     override val gateway: Gateway = InMemoryGateway()
 
     override val presentAvailableMentorsForLanguage = PresentAvailableMentorsForLanguage()
@@ -28,6 +30,11 @@ class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixtu
 
     override val currentMenteeRepository = CurrentMenteeRepository()
     override val currentMentorRepository = CurrentMentorRepository()
+
+    override val menteeConfirmationEmailService = MenteeConfirmationEmailService()
+    override val mentorConfirmationEmailService = MentorConfirmationEmailService()
+    override val signUpMentee = SignUpMentee(menteeConfirmationEmailService)
+    override val signUpMentor = SignUpMentor(mentorConfirmationEmailService)
 
     override var theResponse = ""
 

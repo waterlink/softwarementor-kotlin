@@ -1,15 +1,23 @@
 package softwarementor.mentee
 
 import softwarementor.Context
+import softwarementor.login.EmailNotConfirmed
 import softwarementor.login.InvalidNamePassword
 
 class LoginMentee {
     fun login(name: String, password: String) {
         val mentee = Context.gateway.findMenteesByName(name).firstOrNull()
 
-        if (mentee?.password != password)
+        if (mentee == null || mentee.password != password)
             throw InvalidNamePassword()
 
-        Context.currentMenteeRepository.assume(mentee!!)
+        if (!mentee.isConfirmed)
+            throw EmailNotConfirmed()
+
+        Context.currentMenteeRepository.assume(mentee)
+    }
+
+    fun logout() {
+        Context.currentMenteeRepository.assumeGuest()
     }
 }

@@ -6,4 +6,8 @@ class CurrentMentorRepository {
     fun assume(mentor: Mentor) {
         currentMentor = mentor
     }
+
+    fun assumeGuest() {
+        currentMentor = null
+    }
 }

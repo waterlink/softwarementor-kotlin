@@ -13,7 +13,7 @@ interface MentorFixture {
 
     @AcceptanceMethod
     fun givenThereIsAMentorWithNameWhoKnows(name: String, language: String): Boolean {
-        gateway.save(Mentor(language, name, "NO_PASSWORD"))
+        gateway.save(Mentor(name, "sampleEmail@example.org", "NO_PASSWORD", language))
         return gateway.findAllMentors().last().name == name
     }
 
