@@ -11,7 +11,7 @@ class ApplyForMentorshipWithMentor {
             throw NeedToSignIn()
 
         val mentee = Context.currentMenteeRepository.currentMentee!!
-        Context.gateway.save(MentorshipRequest(mentee, mentor))
+        Context.mentorshipRequestGateway.save(MentorshipRequest(mentee, mentor))
     }
 
 }

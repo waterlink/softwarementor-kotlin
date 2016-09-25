@@ -1,5 +1,5 @@
 package softwarementor.mentee
 
-class Mentee(val name: String, val email: String, val password: String) {
+class Mentee(val name: String) {
     var isConfirmed: Boolean = false
 }

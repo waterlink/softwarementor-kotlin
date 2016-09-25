@@ -1,19 +1,26 @@
 package softwarementor.fixtures
 
-import softwarementor.Gateway
 import softwarementor.mentee.CurrentMenteeRepository
 import softwarementor.mentee.Mentee
+import softwarementor.mentee.MenteeGateway
 import softwarementor.mentor.CurrentMentorRepository
 import softwarementor.mentor.Mentor
+import softwarementor.mentor.MentorGateway
+import softwarementor.user.CurrentUserRepository
+import softwarementor.user.User
+import softwarementor.user.UserGateway
 
 interface UserFixture {
     val currentMenteeRepository: CurrentMenteeRepository
     val currentMentorRepository: CurrentMentorRepository
+    val currentUserRepository: CurrentUserRepository
 
-    val gateway: Gateway
+    val userGateway: UserGateway
+    val menteeGateway: MenteeGateway
+    val mentorGateway: MentorGateway
 
     @AcceptanceMethod
-    fun givenUserIsAGuest(): Boolean {
+    fun givenUserIsNotAMentee(): Boolean {
         currentMenteeRepository.assumeGuest()
         return currentMenteeRepository.isGuest()
     }
@@ -25,28 +32,37 @@ interface UserFixture {
     }
 
     @AcceptanceMethod
+    fun givenThereIsAUserWithNameAndPassword(name: String, password: String): Boolean {
+        userGateway.save(User(name, "sampleEmail@example.org", password).confirmed())
+        return userGateway.findByName(name)?.isConfirmed == true
+    }
+
+    @AcceptanceMethod
     fun givenThereIsAMenteeWithName(name: String): Boolean {
-        gateway.save(Mentee(name, "exampleEmail@example.org", "NO_PASSWORD"))
-        return gateway.findAllMentees().last().name == name
+        menteeGateway.save(Mentee(name))
+        return menteeGateway.findAll().last().name == name
     }
 
     @AcceptanceMethod
-    fun givenThereIsAMenteeWithNameAndPassword(name: String, password: String): Boolean {
-        gateway.save(Mentee(name, "exampleEmail@example.org", password).confirmed())
-        return gateway.findAllMentees().last().name == name
-    }
-
-    @AcceptanceMethod
-    fun givenUserIs(name: String): Boolean {
-        val user = gateway.findMenteesByName(name).first()
+    fun givenUserIsAMenteeWithName(name: String): Boolean {
+        val user = menteeGateway.findByName(name)!!
         currentMenteeRepository.assume(user)
         return currentMenteeRepository.currentMentee?.name == name
     }
 
     @AcceptanceMethod
-    fun givenThereIsAMentorWithNameAndPassword(name: String, password: String): Boolean {
-        gateway.save(Mentor(name, "sampleEmail@example.org", password, "SOME_LANGUAGE").confirmed())
-        return gateway.findAllMentors().last().name == name
+    fun givenUserWithNameHasRole(name: String, role: String): Boolean {
+        if (role == "mentee") {
+            menteeGateway.save(Mentee(name))
+            return menteeGateway.findByName(name) != null
+        }
+
+        if (role == "mentor") {
+            mentorGateway.save(Mentor(name, ""))
+            return mentorGateway.findByName(name) != null
+        }
+
+        return false
     }
 
     @AcceptanceMethod
@@ -59,14 +75,15 @@ interface UserFixture {
         return currentMentorRepository.currentMentor?.name ?: "NOBODY"
     }
 
-    fun Mentee.confirmed(): Mentee {
+    @AcceptanceMethod
+    fun currentUser(): String {
+        return currentUserRepository.currentUser?.name ?: "NOBODY"
+    }
+
+    fun User.confirmed(): User {
         isConfirmed = true
         return this
     }
 
-    fun Mentor.confirmed(): Mentor {
-        this.isConfirmed = true
-        return this
-    }
 }
 

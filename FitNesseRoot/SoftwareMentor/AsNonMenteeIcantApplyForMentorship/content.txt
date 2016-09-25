@@ -1,5 +1,5 @@
 |script                                                                |
-|given user is a guest                                                 |
+|given user is not a mentee                                            |
 |given there is a mentor with name       |John    |who knows|javascript|
 |when applying for mentorship with mentor|John                         |
 |check                                   |response|NEED_TO_SIGN_IN     |

@@ -1,15 +1,16 @@
 package softwarementor.fixtures
 
-import softwarementor.Gateway
 import softwarementor.mentor.PresentedMentor
-import softwarementor.mentorship_request.ApplyForMentorshipWithMentor
-import softwarementor.mentorship_request.MentorshipRequest
-import softwarementor.mentorship_request.PresentMentorshipRequests
-import softwarementor.mentorship_request.PresentedMentorshipRequest
 import softwarementor.login.NeedToSignIn
+import softwarementor.mentee.MenteeGateway
+import softwarementor.mentor.MentorGateway
+import softwarementor.mentorship_request.*
 
 interface MentorshipRequestFixture {
-    val gateway: Gateway
+    val menteeGateway: MenteeGateway
+    val mentorGateway: MentorGateway
+    val mentorshipRequestGateway: MentorshipRequestGateway
+
     val availableMentors: List<PresentedMentor>?
 
     val applyForMentorshipWithMentor: ApplyForMentorshipWithMentor
@@ -20,19 +21,19 @@ interface MentorshipRequestFixture {
 
     @AcceptanceMethod
     fun givenThereIsAMentorshipRequestFromTo(fromMentee: String, toMentor: String): Boolean {
-        val mentee = gateway.findMenteesByName(fromMentee).first()
-        val mentor = gateway.findMentorsByName(toMentor).first()
+        val mentee = menteeGateway.findByName(fromMentee)!!
+        val mentor = mentorGateway.findByName(toMentor)!!
 
-        gateway.save(MentorshipRequest(mentee, mentor))
+        mentorshipRequestGateway.save(MentorshipRequest(mentee, mentor))
 
-        val mentorshipRequest = gateway.findAllMentorshipRequests().last()
+        val mentorshipRequest = mentorshipRequestGateway.findAll().last()
         return mentorshipRequest.mentee.name == fromMentee &&
                 mentorshipRequest.mentor.name == toMentor
     }
 
     @AcceptanceMethod
     fun whenApplyingForMentorshipWithMentor(mentorName: String): Boolean {
-        val mentor = gateway.findMentorsByName(mentorName).first()
+        val mentor = mentorGateway.findByName(mentorName)!!
 
         try {
             applyForMentorshipWithMentor.applyForMentorshipWith(mentor)
@@ -51,6 +52,7 @@ interface MentorshipRequestFixture {
     }
 
     @AcceptanceMethod
-    fun thenCountOfMentorshipRequestsIs(expectedCount: Int) =
-            mentorshipRequests?.count() == expectedCount
+    fun countOfMentorshipRequests() =
+            mentorshipRequests?.count()
 }
+

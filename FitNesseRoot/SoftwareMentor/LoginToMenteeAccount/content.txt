@@ -1,5 +1,8 @@
-|script                                                               |
-|given there is a mentee with name|John          |and password|welcome|
-|when logging in with name        |John          |and password|welcome|
-|check                            |response      |SUCCESS             |
-|check                            |current mentee|John                |
+|script                                                             |
+|given there is a user with name|John          |and password|welcome|
+|given user with name           |John          |has role    |mentee |
+|when logging in with name      |John          |and password|welcome|
+|check                          |response      |SUCCESS             |
+|check                          |current user  |John                |
+|check                          |current mentee|John                |
+|check                          |current mentor|NOBODY              |

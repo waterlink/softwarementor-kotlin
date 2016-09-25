@@ -1,7 +1,7 @@
-|script                                                          |
-|given user is a mentee                                          |
-|given there is a mentor with name       |John    |who knows|ruby|
-|when applying for mentorship with mentor|John                   |
-|check                                   |response|SUCCESS       |
-|when presenting mentorship requests                             |
-|then count of mentorship requests is    |1                      |
+|script                                                                              |
+|given user is a mentee                                                              |
+|given there is a mentor with name       |John                        |who knows|ruby|
+|when applying for mentorship with mentor|John                                       |
+|check                                   |response                    |SUCCESS       |
+|when presenting mentorship requests                                                 |
+|check                                   |count of mentorship requests|1             |

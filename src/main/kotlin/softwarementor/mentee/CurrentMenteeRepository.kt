@@ -7,12 +7,12 @@ class CurrentMenteeRepository {
         currentMentee = null
     }
 
-    fun assume(mentee: Mentee) {
+    fun assume(mentee: Mentee?) {
         currentMentee = mentee
     }
 
     fun assumeMentee() {
-        assume(Mentee("MenteeUserName", "exampleEmail@example.org", "NO_PASSWORD"))
+        assume(Mentee("MenteeUserName"))
     }
 
     fun isGuest() = currentMentee == null

@@ -1,5 +1,5 @@
-|script                                                                                                                       |
-|given there is a mentee with name|John                              |and password|welcome                                    |
-|when signing up with name        |John                              |and email   |john.smith@example.org|and password|welcome|
-|check                            |response                          |USER_ALREADY_REGISTERED                                 |
-|check                            |last confirmation email is sent to|NOBODY                                                  |
+|script                                                                                                                     |
+|given there is a user with name|John                              |and password|welcome                                    |
+|when signing up with name      |John                              |and email   |john.smith@example.org|and password|welcome|
+|check                          |response                          |USER_ALREADY_REGISTERED                                 |
+|check                          |last confirmation email is sent to|NOBODY                                                  |

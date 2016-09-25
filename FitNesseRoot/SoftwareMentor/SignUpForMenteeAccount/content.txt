@@ -9,7 +9,10 @@ It is possible to sign in after successful sign up and confirmation of the email
 |check                          |response                          |SUCCESS                                                 |
 |when logging in with name      |John                              |and password|welcome                                    |
 |check                          |response                          |SUCCESS                                                 |
+|check                          |current user                      |John                                                    |
 |check                          |current mentee                    |John                                                    |
+|check                          |current mentor                    |NOBODY                                                  |
+
 
 It is not possible to sign in before the email is confirmed:
 
@@ -18,4 +21,6 @@ It is not possible to sign in before the email is confirmed:
 |check                    |response      |SUCCESS                                            |
 |when logging in with name|Alice         |and password|welcome                               |
 |check                    |response      |EMAIL_NOT_CONFIRMED                                |
+|check                    |current user  |NOBODY                                             |
+|check                    |current mentor|NOBODY                                             |
 |check                    |current mentee|NOBODY                                             |

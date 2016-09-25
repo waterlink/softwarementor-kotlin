@@ -1,26 +1,27 @@
 package softwarementor.fixtures
 
-import softwarementor.Gateway
 import softwarementor.mentor.Mentor
+import softwarementor.mentor.MentorGateway
 import softwarementor.mentor.PresentAvailableMentorsForLanguage
 import softwarementor.mentor.PresentedMentor
 import java.util.*
 
 interface MentorFixture {
-    val gateway: Gateway
+    val mentorGateway: MentorGateway
     val presentAvailableMentorsForLanguage: PresentAvailableMentorsForLanguage
     var availableMentors: List<PresentedMentor>?
 
     @AcceptanceMethod
     fun givenThereIsAMentorWithNameWhoKnows(name: String, language: String): Boolean {
-        gateway.save(Mentor(name, "sampleEmail@example.org", "NO_PASSWORD", language))
-        return gateway.findAllMentors().last().name == name
+        mentorGateway.save(Mentor(name, language))
+        return mentorGateway.findAll().last().name == name
     }
 
     @AcceptanceMethod
     fun givenThereAreNoMentors(): Boolean {
-        ArrayList<Mentor>(gateway.findAllMentors()).forEach { gateway.delete(it) }
-        return gateway.findAllMentors().count() == 0
+        ArrayList<Mentor>(mentorGateway.findAll())
+                .forEach { mentorGateway.delete(it) }
+        return mentorGateway.findAll().count() == 0
     }
 
     @AcceptanceMethod
@@ -30,6 +31,6 @@ interface MentorFixture {
     }
 
     @AcceptanceMethod
-    fun thenAvailableMentorsCountIs(expectedCount: Int) =
-            availableMentors?.count() == expectedCount
+    fun availableMentorsCount() =
+            availableMentors?.count()
 }

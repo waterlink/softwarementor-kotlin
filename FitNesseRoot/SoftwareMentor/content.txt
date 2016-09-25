@@ -15,7 +15,7 @@ It helps mentees find the mentor and helps mentors to be found by mentees.
 
 !3 Applying for Mentorship
 
->AsGuestIcantApplyForMentorship
+>AsNonMenteeIcantApplyForMentorship
 >AsLoggedInMenteeIcanApplyForMentorship
 
 !3 Presenting my Mentorship Requests
@@ -26,26 +26,17 @@ It helps mentees find the mentor and helps mentors to be found by mentees.
 
 !3 Login
 
-!4 Logging in as Mentee
-
 >LoginToMenteeAccount
->CantLoginToNonExistentMenteeAccount
-
-!4 Logging in as Mentor
-
 >LoginToMentorAccount
->CantLoginToNonExistentMentorAccount
+>CantLoginWithWrongCredentials
 
 !3 Sign Up
 
 !4 Signing up as Mentee
 
 >SignUpForMenteeAccount
->CantSignUpMenteeAccountNameAlreadyTaken
-
-!4 Signing up as Mentor
-
 >SignUpForMentorAccount
+>CantSignUpMenteeAccountNameAlreadyTaken
 >CantSignUpMentorAccountNameAlreadyTaken
 
 !2 Misc

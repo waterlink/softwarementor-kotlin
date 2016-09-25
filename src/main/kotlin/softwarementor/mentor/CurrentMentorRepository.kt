@@ -3,7 +3,7 @@ package softwarementor.mentor
 class CurrentMentorRepository {
     var currentMentor: Mentor? = null
 
-    fun assume(mentor: Mentor) {
+    fun assume(mentor: Mentor?) {
         currentMentor = mentor
     }
 

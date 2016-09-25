@@ -1,51 +1,53 @@
 package softwarementor.fixtures
 
 import softwarementor.Context
+import softwarementor.login.Login
 import softwarementor.mentee.CurrentMenteeRepository
-import softwarementor.Gateway
-import softwarementor.InMemoryGateway
-import softwarementor.mentee.LoginMentee
-import softwarementor.mentor.CurrentMentorRepository
-import softwarementor.mentor.LoginMentor
-import softwarementor.mentorship_request.ApplyForMentorshipWithMentor
-import softwarementor.mentor.PresentAvailableMentorsForLanguage
-import softwarementor.mentor.PresentedMentor
-import softwarementor.mentorship_request.PresentMentorshipRequests
-import softwarementor.mentorship_request.PresentedMentorshipRequest
-import softwarementor.signup_mentee.MenteeConfirmationEmailService
-import softwarementor.signup_mentee.SignUpMentee
-import softwarementor.signup_mentor.MentorConfirmationEmailService
-import softwarementor.signup_mentor.SignUpMentor
+import softwarementor.mentee.InMemoryMenteeGateway
+import softwarementor.mentor.*
+import softwarementor.mentorship_request.*
+import softwarementor.signup.EmailConfirmationService
+import softwarementor.signup.SignUp
+import softwarementor.user.CurrentUserRepository
+import softwarementor.signup.InMemoryUserConfirmationGateway
+import softwarementor.user.InMemoryUserGateway
 
 class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixture, LoginFixture, SignUpFixture {
-    override val gateway: Gateway = InMemoryGateway()
-
     override val presentAvailableMentorsForLanguage = PresentAvailableMentorsForLanguage()
-    override var availableMentors: List<PresentedMentor>? = null
 
+    override var availableMentors: List<PresentedMentor>? = null
     override val applyForMentorshipWithMentor = ApplyForMentorshipWithMentor()
+
     override val presentMentorshipRequests = PresentMentorshipRequests()
     override var mentorshipRequests: List<PresentedMentorshipRequest>? = null
-
-    override val loginMentee = LoginMentee()
-    override val loginMentor = LoginMentor()
-
     override val currentMenteeRepository = CurrentMenteeRepository()
+
     override val currentMentorRepository = CurrentMentorRepository()
 
-    override val menteeConfirmationEmailService = MenteeConfirmationEmailService()
-    override val mentorConfirmationEmailService = MentorConfirmationEmailService()
-    override val signUpMentee = SignUpMentee(menteeConfirmationEmailService)
-    override val signUpMentor = SignUpMentor(mentorConfirmationEmailService)
-
+    override val emailConfirmationService = EmailConfirmationService()
+    override val signUp = SignUp(emailConfirmationService)
+    override val login = Login()
+    override val currentUserRepository = CurrentUserRepository()
     override var theResponse = ""
 
+    override val userGateway = InMemoryUserGateway()
+    override val menteeGateway = InMemoryMenteeGateway()
+    override val mentorGateway = InMemoryMentorGateway()
+    override val mentorshipRequestGateway = InMemoryMentorshipRequestGateway()
+
     init {
-        Context.gateway = gateway
+        Context.userGateway = userGateway
+        Context.menteeGateway = menteeGateway
+        Context.mentorGateway = mentorGateway
+        Context.userConfirmationGateway = InMemoryUserConfirmationGateway()
+        Context.mentorshipRequestGateway = mentorshipRequestGateway
+
         Context.currentMenteeRepository = currentMenteeRepository
         Context.currentMentorRepository = currentMentorRepository
+        Context.currentUserRepository = currentUserRepository
     }
 
     @AcceptanceMethod
     fun response(): String = theResponse
 }
+

@@ -1,0 +1,4 @@
+|script                                                                                               |
+|given there is a user with name    |John    |and password|welcome                                    |
+|when signing up as mentor with name|John    |and email   |john.smith@example.org|and password|welcome|
+|check                              |response|USER_ALREADY_REGISTERED                                 |

@@ -1,8 +1,0 @@
-|script                                                              |
-|given there is a mentor with name    |John    |and password |welcome|
-|when logging in as a mentor with name|John    |and password |WRONG  |
-|check                                |response|INVALID_NAME_PASSWORD|
-|when logging in as a mentor with name|WRONG   |and password |welcome|
-|check                                |response|INVALID_NAME_PASSWORD|
-|when logging in as a mentor with name|WRONG   |and password |WRONG  |
-|check                                |response|INVALID_NAME_PASSWORD|
