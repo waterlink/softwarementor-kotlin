@@ -13,20 +13,22 @@ import java.util.*
 class SignUp(private val context: Context,
              private val emailConfirmationService: EmailConfirmationService) {
 
-    fun confirm(confirmationCode: String) {
-        val userConfirmation = context.userConfirmationGateway.findByCode(confirmationCode)
-                ?: throw InvalidConfirmationCode()
-
-        val user = context.userGateway.findByName(userConfirmation.name)
-        user?.isConfirmed = true
-    }
-
     fun signUpAsMentee(name: String, email: String, password: String) {
         signUp(name, email, password, MenteeRoleCreator(context))
     }
 
     fun signUpAsMentor(name: String, email: String, password: String) {
         signUp(name, email, password, MentorRoleCreator(context))
+    }
+
+    fun confirm(confirmationCode: String) {
+        val userConfirmation = context.userConfirmationGateway.findByCode(confirmationCode)
+                ?: throw InvalidConfirmationCode()
+
+        val user = context.userGateway.findByName(userConfirmation.name)
+
+        user?.isConfirmed = true
+        context.userGateway.save(user!!)
     }
 
     private fun signUp(name: String, email: String, password: String, roleCreator: RoleCreator) {

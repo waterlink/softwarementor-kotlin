@@ -82,6 +82,7 @@ interface UserFixture {
 
     fun User.confirmed(): User {
         isConfirmed = true
+        userGateway.save(this)
         return this
     }
 
