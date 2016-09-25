@@ -1,8 +1,5 @@
 package softwarementor.signup
 
-import softwarementor.signup.UserConfirmation
-import softwarementor.signup.UserConfirmationGateway
-
 class InMemoryUserConfirmationGateway : UserConfirmationGateway {
     private val entities: MutableList<UserConfirmation> = mutableListOf()
 

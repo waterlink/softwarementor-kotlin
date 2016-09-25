@@ -1,20 +1,14 @@
 package softwarementor.user
 
 class InMemoryUserGateway : UserGateway {
-    private val entities: MutableList<UserStoredInMemory> = mutableListOf()
+    private val entities: MutableMap<String, UserStoredInMemory> = mutableMapOf()
 
     override fun save(user: User) {
-        if (user.isNew) {
-            entities.add(UserStoredInMemory(user))
-            user.isNew = false
-        } else {
-            val index = entities.indexOfFirst { it.name == user.name }
-            entities[index] = UserStoredInMemory(user)
-        }
+        entities[user.name] = UserStoredInMemory(user)
     }
 
     override fun findByName(name: String): User? {
-        return entities.find { it.name == name }?.constructUser()
+        return entities[name]?.constructUser()
     }
 
     private class UserStoredInMemory(user: User) {
@@ -26,15 +20,9 @@ class InMemoryUserGateway : UserGateway {
         fun constructUser() =
                 User(name, email, password)
                         .withConfirmed(isConfirmed)
-                        .andFromGateway()
 
         fun User.withConfirmed(confirmed: Boolean): User {
             this.isConfirmed = confirmed
-            return this
-        }
-
-        fun User.andFromGateway(): User {
-            this.isNew = false
             return this
         }
 
