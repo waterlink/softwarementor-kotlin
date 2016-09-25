@@ -2,10 +2,10 @@ package softwarementor.mentorship_request
 
 import softwarementor.Context
 
-class PresentMentorshipRequests {
+class PresentMentorshipRequests(private val context: Context) {
     fun presentMyMentorshipRequests(): List<PresentedMentorshipRequest> {
-        val mentee = Context.currentMenteeRepository.currentMentee!!
-        return Context.mentorshipRequestGateway.findByMenteeName(mentee.name).map {
+        val mentee = context.currentMenteeRepository.currentMentee!!
+        return context.mentorshipRequestGateway.findByMenteeName(mentee.name).map {
             PresentedMentorshipRequest()
         }
     }

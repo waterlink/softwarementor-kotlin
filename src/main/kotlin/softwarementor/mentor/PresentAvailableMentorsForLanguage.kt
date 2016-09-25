@@ -3,9 +3,9 @@ package softwarementor.mentor
 import softwarementor.Context
 import softwarementor.mentor.PresentedMentor
 
-class PresentAvailableMentorsForLanguage {
+class PresentAvailableMentorsForLanguage(private val context: Context) {
     fun presentAvailableMentorsFor(language: String) =
-            Context.mentorGateway.findByLanguage(language).map {
+            context.mentorGateway.findByLanguage(language).map {
                 PresentedMentor(it.id, it.language)
             }
 }

@@ -2,11 +2,11 @@ package softwarementor.login
 
 import softwarementor.Context
 
-class Login {
+class Login(private val context: Context) {
     fun login(name: String, password: String) {
         logout()
 
-        val user = Context.userGateway.findByName(name)
+        val user = context.userGateway.findByName(name)
 
         if (user == null || user.password != password)
             throw InvalidNamePassword()
@@ -14,19 +14,19 @@ class Login {
         if (!user.isConfirmed)
             throw EmailNotConfirmed()
 
-        Context.currentUserRepository.assume(user)
+        context.currentUserRepository.assume(user)
 
-        val mentee = Context.menteeGateway.findByName(name)
-        Context.currentMenteeRepository.assume(mentee)
+        val mentee = context.menteeGateway.findByName(name)
+        context.currentMenteeRepository.assume(mentee)
 
-        val mentor = Context.mentorGateway.findByName(name)
-        Context.currentMentorRepository.assume(mentor)
+        val mentor = context.mentorGateway.findByName(name)
+        context.currentMentorRepository.assume(mentor)
     }
 
     fun logout() {
-        Context.currentUserRepository.assumeGuest()
-        Context.currentMenteeRepository.assumeGuest()
-        Context.currentMentorRepository.assumeGuest()
+        context.currentUserRepository.assumeGuest()
+        context.currentMenteeRepository.assumeGuest()
+        context.currentMentorRepository.assumeGuest()
     }
 
 }

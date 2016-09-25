@@ -7,33 +7,43 @@ import softwarementor.signup.EmailConfirmationService
 import softwarementor.user.User
 import softwarementor.signup.UserConfirmation
 import softwarementor.mentee.Mentee
+import softwarementor.mentee.MenteeRoleCreator
 import java.util.*
 
-class SignUp(private val emailConfirmationService: EmailConfirmationService) {
+class SignUp(private val context: Context,
+             private val emailConfirmationService: EmailConfirmationService) {
 
-    fun signUp(name: String, email: String, password: String, roleCreator: RoleCreator) {
-        val user = Context.userGateway.findByName(name)
+    fun confirm(confirmationCode: String) {
+        val userConfirmation = context.userConfirmationGateway.findByCode(confirmationCode)
+                ?: throw InvalidConfirmationCode()
+
+        val user = context.userGateway.findByName(userConfirmation.name)
+        user?.isConfirmed = true
+    }
+
+    fun signUpAsMentee(name: String, email: String, password: String) {
+        signUp(name, email, password, MenteeRoleCreator(context))
+    }
+
+    fun signUpAsMentor(name: String, email: String, password: String) {
+        signUp(name, email, password, MentorRoleCreator(context))
+    }
+
+    private fun signUp(name: String, email: String, password: String, roleCreator: RoleCreator) {
+        val user = context.userGateway.findByName(name)
 
         if (user != null)
             throw UserAlreadyRegistered()
 
         val newUser = User(name, email, password)
-        Context.userGateway.save(newUser)
+        context.userGateway.save(newUser)
 
         roleCreator.create(name)
 
         val code = UUID.randomUUID().toString()
         val userConfirmation = UserConfirmation(name, code)
-        Context.userConfirmationGateway.save(userConfirmation)
+        context.userConfirmationGateway.save(userConfirmation)
 
         emailConfirmationService.sendConfirmationEmail(email, name, code)
-    }
-
-    fun confirm(confirmationCode: String) {
-        val userConfirmation = Context.userConfirmationGateway.findByCode(confirmationCode)
-                ?: throw InvalidConfirmationCode()
-
-        val user = Context.userGateway.findByName(userConfirmation.name)
-        user?.isConfirmed = true
     }
 }

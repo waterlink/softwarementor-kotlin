@@ -13,20 +13,22 @@ import softwarementor.signup.InMemoryUserConfirmationGateway
 import softwarementor.user.InMemoryUserGateway
 
 class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixture, LoginFixture, SignUpFixture {
-    override val presentAvailableMentorsForLanguage = PresentAvailableMentorsForLanguage()
+    private val context = Context()
+
+    override val presentAvailableMentorsForLanguage = PresentAvailableMentorsForLanguage(context)
 
     override var availableMentors: List<PresentedMentor>? = null
-    override val applyForMentorshipWithMentor = ApplyForMentorshipWithMentor()
+    override val applyForMentorshipWithMentor = ApplyForMentorshipWithMentor(context)
 
-    override val presentMentorshipRequests = PresentMentorshipRequests()
+    override val presentMentorshipRequests = PresentMentorshipRequests(context)
     override var mentorshipRequests: List<PresentedMentorshipRequest>? = null
     override val currentMenteeRepository = CurrentMenteeRepository()
 
     override val currentMentorRepository = CurrentMentorRepository()
 
     override val emailConfirmationService = EmailConfirmationService()
-    override val signUp = SignUp(emailConfirmationService)
-    override val login = Login()
+    override val signUp = SignUp(context, emailConfirmationService)
+    override val login = Login(context)
     override val currentUserRepository = CurrentUserRepository()
     override var theResponse = ""
 
@@ -36,15 +38,15 @@ class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixtu
     override val mentorshipRequestGateway = InMemoryMentorshipRequestGateway()
 
     init {
-        Context.userGateway = userGateway
-        Context.menteeGateway = menteeGateway
-        Context.mentorGateway = mentorGateway
-        Context.userConfirmationGateway = InMemoryUserConfirmationGateway()
-        Context.mentorshipRequestGateway = mentorshipRequestGateway
+        context.userGateway = userGateway
+        context.menteeGateway = menteeGateway
+        context.mentorGateway = mentorGateway
+        context.userConfirmationGateway = InMemoryUserConfirmationGateway()
+        context.mentorshipRequestGateway = mentorshipRequestGateway
 
-        Context.currentMenteeRepository = currentMenteeRepository
-        Context.currentMentorRepository = currentMentorRepository
-        Context.currentUserRepository = currentUserRepository
+        context.currentMenteeRepository = currentMenteeRepository
+        context.currentMentorRepository = currentMentorRepository
+        context.currentUserRepository = currentUserRepository
     }
 
     @AcceptanceMethod

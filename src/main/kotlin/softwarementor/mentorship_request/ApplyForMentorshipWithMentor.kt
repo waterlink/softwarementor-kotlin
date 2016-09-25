@@ -5,13 +5,13 @@ import softwarementor.mentor.Mentor
 import softwarementor.mentee.Mentee
 import softwarementor.login.NeedToSignIn
 
-class ApplyForMentorshipWithMentor {
+class ApplyForMentorshipWithMentor(private val context: Context) {
     fun applyForMentorshipWith(mentor: Mentor) {
-        if (Context.currentMenteeRepository.isGuest())
+        if (context.currentMenteeRepository.isGuest())
             throw NeedToSignIn()
 
-        val mentee = Context.currentMenteeRepository.currentMentee!!
-        Context.mentorshipRequestGateway.save(MentorshipRequest(mentee, mentor))
+        val mentee = context.currentMenteeRepository.currentMentee!!
+        context.mentorshipRequestGateway.save(MentorshipRequest(mentee, mentor))
     }
 
 }

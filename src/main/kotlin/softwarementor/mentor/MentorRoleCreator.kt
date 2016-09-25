@@ -3,8 +3,8 @@ package softwarementor.mentor
 import softwarementor.Context
 import softwarementor.user.RoleCreator
 
-class MentorRoleCreator : RoleCreator {
+class MentorRoleCreator(private val context: Context) : RoleCreator {
     override fun create(name: String) {
-        Context.mentorGateway.save(Mentor(name, ""))
+        context.mentorGateway.save(Mentor(name, ""))
     }
 }

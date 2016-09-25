@@ -1,7 +1,5 @@
 package softwarementor.fixtures
 
-import softwarementor.mentee.MenteeRoleCreator
-import softwarementor.mentor.MentorRoleCreator
 import softwarementor.signup.EmailConfirmationService
 import softwarementor.signup.InvalidConfirmationCode
 import softwarementor.signup.SignUp
@@ -16,7 +14,7 @@ interface SignUpFixture {
     @AcceptanceMethod
     fun whenSigningUpWithNameAndEmailAndPassword(name: String, email: String, password: String): Boolean {
         try {
-            signUp.signUp(name, email, password, MenteeRoleCreator())
+            signUp.signUpAsMentee(name, email, password)
             theResponse = "SUCCESS"
         } catch (exception: UserAlreadyRegistered) {
             theResponse = "USER_ALREADY_REGISTERED"
@@ -27,7 +25,7 @@ interface SignUpFixture {
     @AcceptanceMethod
     fun whenSigningUpAsMentorWithNameAndEmailAndPassword(name: String, email: String, password: String): Boolean {
         try {
-            signUp.signUp(name, email, password, MentorRoleCreator())
+            signUp.signUpAsMentor(name, email, password)
             theResponse = "SUCCESS"
         } catch (exception: UserAlreadyRegistered) {
             theResponse = "USER_ALREADY_REGISTERED"

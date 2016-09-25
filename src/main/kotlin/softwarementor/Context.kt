@@ -9,7 +9,7 @@ import softwarementor.user.CurrentUserRepository
 import softwarementor.signup.UserConfirmationGateway
 import softwarementor.user.UserGateway
 
-object Context {
+class Context {
     lateinit var currentMenteeRepository: CurrentMenteeRepository
     lateinit var currentMentorRepository: CurrentMentorRepository
     lateinit var userGateway: UserGateway

@@ -3,8 +3,9 @@ package softwarementor.mentee
 import softwarementor.Context
 import softwarementor.user.RoleCreator
 
-class MenteeRoleCreator : RoleCreator {
+class MenteeRoleCreator(private val context: Context) : RoleCreator {
+
     override fun create(name: String) {
-        Context.menteeGateway.save(Mentee(name))
+        context.menteeGateway.save(Mentee(name))
     }
 }
