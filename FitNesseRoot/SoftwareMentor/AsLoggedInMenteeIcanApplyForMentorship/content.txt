@@ -1,7 +1,9 @@
-|script                                                                              |
-|given user is a mentee                                                              |
-|given there is a mentor with name       |John                        |who knows|ruby|
-|when applying for mentorship with mentor|John                                       |
-|check                                   |response                    |SUCCESS       |
-|when presenting mentorship requests                                                 |
-|check                                   |count of mentorship requests|1             |
+|script                                                                                |
+|given there is a user with name         |Sarah                                        |
+|given user with name                    |Sarah                       |has role |mentee|
+|given user is a mentee with name        |Sarah                                        |
+|given there is a mentor with name       |John                        |who knows|ruby  |
+|when applying for mentorship with mentor|John                                         |
+|check                                   |response                    |SUCCESS         |
+|when presenting mentorship requests                                                   |
+|check                                   |count of mentorship requests|1               |

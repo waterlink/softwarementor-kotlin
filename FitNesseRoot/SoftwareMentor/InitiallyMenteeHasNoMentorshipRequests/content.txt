@@ -1,4 +1,5 @@
-|script                              |
-|given user is a mentee              |
-|when presenting mentorship requests |
-|check|count of mentorship requests|0|
+|script                                                          |
+|given there is a mentee with name|Bob                           |
+|given user is a mentee with name |Bob                           |
+|when presenting mentorship requests                             |
+|check                            |count of mentorship requests|0|

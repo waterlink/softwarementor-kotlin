@@ -11,11 +11,5 @@ class CurrentMenteeRepository {
         currentMentee = mentee
     }
 
-    fun assumeMentee() {
-        assume(Mentee("MenteeUserName"))
-    }
-
     fun isGuest() = currentMentee == null
-
-    fun isLoggedIn() = currentMentee != null
 }

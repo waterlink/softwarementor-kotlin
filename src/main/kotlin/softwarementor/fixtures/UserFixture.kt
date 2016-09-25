@@ -26,14 +26,14 @@ interface UserFixture {
     }
 
     @AcceptanceMethod
-    fun givenUserIsAMentee(): Boolean {
-        currentMenteeRepository.assumeMentee()
-        return currentMenteeRepository.isLoggedIn()
+    fun givenThereIsAUserWithNameAndPassword(name: String, password: String): Boolean {
+        userGateway.save(User(name, "sampleEmail@example.org", password).confirmed())
+        return userGateway.findByName(name)?.isConfirmed == true
     }
 
     @AcceptanceMethod
-    fun givenThereIsAUserWithNameAndPassword(name: String, password: String): Boolean {
-        userGateway.save(User(name, "sampleEmail@example.org", password).confirmed())
+    fun givenThereIsAUserWithName(name: String): Boolean {
+        userGateway.save(User(name, "sampleEmail@example.org", "noPassword").confirmed())
         return userGateway.findByName(name)?.isConfirmed == true
     }
 

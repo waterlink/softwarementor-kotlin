@@ -35,7 +35,7 @@ class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixtu
     override val userGateway = InMemoryUserGateway()
     override val menteeGateway = InMemoryMenteeGateway()
     override val mentorGateway = InMemoryMentorGateway()
-    override val mentorshipRequestGateway = InMemoryMentorshipRequestGateway()
+    override val mentorshipRequestGateway = InMemoryMentorshipRequestGateway(context)
 
     init {
         context.userGateway = userGateway
