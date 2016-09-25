@@ -1,21 +1,33 @@
 package softwarementor.mentor
 
 class InMemoryMentorGateway : MentorGateway {
-    private val entities: MutableList<Mentor> = mutableListOf()
+    private val entities: MutableMap<String, MentorStoredInMemory> = mutableMapOf()
 
     override fun save(mentor: Mentor) {
-        entities.add(mentor)
+        entities[mentor.name] = MentorStoredInMemory(mentor)
     }
 
     override fun findByName(name: String) =
-            entities.find { it.name == name }
+            entities[name]?.constructMentor()
 
-    override fun findAll() = entities
+    override fun findAll() = entities.values
+            .map { it.constructMentor() }
 
     override fun findByLanguage(language: String) =
-            entities.filter { it.language == language }
+            findAll().filter { it.language == language }
 
     override fun delete(mentor: Mentor) {
-        entities.remove(mentor)
+        entities.remove(mentor.name)
     }
+
+    class MentorStoredInMemory(mentor: Mentor) {
+        val name = mentor.name
+        val language = mentor.language
+
+        fun constructMentor(): Mentor {
+            return Mentor(name, language)
+        }
+
+    }
+
 }
