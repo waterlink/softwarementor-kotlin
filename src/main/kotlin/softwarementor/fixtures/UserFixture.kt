@@ -44,8 +44,15 @@ interface UserFixture {
     }
 
     @AcceptanceMethod
+    fun givenUserIsAMentorWithName(name: String): Boolean {
+        val user = mentorGateway.findByName(name)
+        currentMentorRepository.assume(user)
+        return currentMentorRepository.currentMentor?.name == name
+    }
+
+    @AcceptanceMethod
     fun givenUserIsAMenteeWithName(name: String): Boolean {
-        val user = menteeGateway.findByName(name)!!
+        val user = menteeGateway.findByName(name)
         currentMenteeRepository.assume(user)
         return currentMenteeRepository.currentMentee?.name == name
     }

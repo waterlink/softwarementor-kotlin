@@ -8,21 +8,31 @@ It helps mentees find the mentor and helps mentors to be found by mentees.
 
 !2 Usecases
 
-!3 Presenting Mentors
+!3 As Mentee
+
+!4 Presenting Mentors
 
 >AsMenteeIcanFindMentor
 >NoMentorsToBeFound
 
-!3 Applying for Mentorship
+!4 Applying for Mentorship
 
 >AsNonMenteeIcantApplyForMentorship
 >AsLoggedInMenteeIcanApplyForMentorship
 
-!3 Presenting my Mentorship Requests
+!4 Presenting my Mentorship Requests
 
 >InitiallyMenteeHasNoMentorshipRequests
 >AsMenteeIcanSeeMyMentorshipRequests
 >AsMenteeIcantSeeOthersMentorshipRequests
+
+!3 As Mentor
+
+!4 Presenting Incoming Mentorship Requests
+
+>InitiallyMentorHasNoIncomingMentorshipRequests
+>AsMentorIcanSeeMyIncomingMentorshipRequests
+>AsMentorIcantSeeOthersIncomingMentorshipRequests
 
 !3 Login
 

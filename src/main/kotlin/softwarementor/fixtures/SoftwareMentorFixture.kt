@@ -1,6 +1,8 @@
 package softwarementor.fixtures
 
 import softwarementor.Context
+import softwarementor.incoming_mentorship_request.PresentIncomingMentorshipRequests
+import softwarementor.incoming_mentorship_request.PresentedIncomingMentorshipRequest
 import softwarementor.login.Login
 import softwarementor.mentee.CurrentMenteeRepository
 import softwarementor.mentee.InMemoryMenteeGateway
@@ -12,7 +14,8 @@ import softwarementor.user.CurrentUserRepository
 import softwarementor.signup.InMemoryUserConfirmationGateway
 import softwarementor.user.InMemoryUserGateway
 
-class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixture, LoginFixture, SignUpFixture {
+class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixture,
+        LoginFixture, SignUpFixture, IncomingMentorshipRequestFixture {
     private val context = Context()
 
     override val presentAvailableMentorsForLanguage = PresentAvailableMentorsForLanguage(context)
@@ -36,6 +39,9 @@ class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixtu
     override val menteeGateway = InMemoryMenteeGateway()
     override val mentorGateway = InMemoryMentorGateway()
     override val mentorshipRequestGateway = InMemoryMentorshipRequestGateway(context)
+
+    override val presentIncomingMentorshipRequests = PresentIncomingMentorshipRequests()
+    override var incomingMentorshipRequests: List<PresentedIncomingMentorshipRequest>? = null
 
     init {
         context.userGateway = userGateway
