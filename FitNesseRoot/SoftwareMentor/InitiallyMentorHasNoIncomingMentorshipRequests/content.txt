@@ -3,4 +3,4 @@
 |given user with name            |John                              |has role|mentor|
 |given user is a mentor with name|John                                              |
 |when presenting incoming mentorship requests                                       |
-|check                           |incoming mentorship requests count|0              |
+|then                            |incoming mentorship requests count|is      |0     |

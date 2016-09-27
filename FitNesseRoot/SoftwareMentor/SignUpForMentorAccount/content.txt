@@ -1,25 +1,27 @@
-Can login after signing up as a mentor and confirming their account:
+!4 Can login after signing up as a mentor and confirming their account:
 
-|script                                                                                                                         |
-|when signing up as mentor with name|John                              |and email   |john.smith@example.org|and password|welcome|
-|check                              |response                          |SUCCESS                                                 |
-|check                              |last confirmation email is sent to|john.smith@example.org                                  |
-|$confirmation_code=                |last confirmation email's code                                                             |
-|when confirming email with code    |$confirmation_code                                                                         |
-|check                              |response                          |SUCCESS                                                 |
-|when logging in with name          |John                              |and password|welcome                                    |
-|check                              |response                          |SUCCESS                                                 |
-|check                              |current user                      |John                                                    |
-|check                              |current mentor                    |John                                                    |
-|check                              |current mentee                    |NOBODY                                                  |
+|script                                                                                                                      |
+|when signing up as mentor with name|John                              |and email|john.smith@example.org|and password|welcome|
+|then                               |response                          |is       |SUCCESS                                    |
+|then                               |last confirmation email is sent to|is       |john.smith@example.org                     |
 
-Can not login without confirmation of their account:
+|script                                                       |
+|when confirming email with code from email                   |
+|when logging in with name|John          |and password|welcome|
+|then                     |response      |is          |SUCCESS|
+|then                     |current user  |is          |John   |
+|then                     |current mentor|is          |John   |
+|then                     |current mentee|is          |NOBODY |
 
-|script                                                                                                |
-|when signing up as mentor with name|Sarah         |and email   |sarah@example.org|and password|welcome|
-|check                              |response      |SUCCESS                                            |
-|when logging in with name          |Sarah         |and password|welcome                               |
-|check                              |response      |EMAIL_NOT_CONFIRMED                                |
-|check                              |current user  |NOBODY                                             |
-|check                              |current mentor|NOBODY                                             |
-|check                              |current mentee|NOBODY                                             |
+!4 Can not login without confirmation of their account:
+
+|script                                                                                       |
+|when signing up as mentor with name|Sarah   |and email|sarah@example.org|and password|welcome|
+|then                               |response|is       |SUCCESS                               |
+
+|script                                                                   |
+|when logging in with name|Sarah         |and password|welcome            |
+|then                     |response      |is          |EMAIL_NOT_CONFIRMED|
+|then                     |current user  |is          |NOBODY             |
+|then                     |current mentor|is          |NOBODY             |
+|then                     |current mentee|is          |NOBODY             |

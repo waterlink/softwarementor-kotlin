@@ -3,3 +3,18 @@
 
 |script                                             |
 |start|softwarementor.fixtures.SoftwareMentorFixture|
+
+|scenario                       |given there is a _ with name _|userRole,userName |
+|given there is a user with name|@userName                                        |
+|given user with name           |@userName                     |has role|@userRole|
+
+|scenario                           |given current user is a _ with name _|userRole,userName  |
+|given there is a                   |@userRole                            |with name|@userName|
+|given user is a @userRole with name|@userName                                                |
+
+|scenario|then _ is _ |anAttribute,expectedResponse|
+|check   |@anAttribute|@expectedResponse           |
+
+|scenario                       |when confirming email with code from email|
+|$confirmation_code=            |last confirmation email's code            |
+|when confirming email with code|$confirmation_code                        |

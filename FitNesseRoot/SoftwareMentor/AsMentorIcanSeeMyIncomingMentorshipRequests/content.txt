@@ -1,8 +1,6 @@
 |script                                                                                     |
-|given there is a user with name         |Alice                                             |
-|given user with name                    |Alice                             |has role|mentor|
-|given there is a mentee with name       |Bob                                               |
-|given there is a mentorship request from|Bob                               |to      |Alice |
-|given user is a mentor with name        |Alice                                             |
+|given current user is a                 |mentor                            |with name|Alice|
+|given there is a                        |mentee                            |with name|Bob  |
+|given there is a mentorship request from|Bob                               |to       |Alice|
 |when presenting incoming mentorship requests                                               |
-|check                                   |incoming mentorship requests count|1              |
+|then                                    |incoming mentorship requests count|is       |1    |

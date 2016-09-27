@@ -2,7 +2,7 @@
 |given there is a user with name|John          |and password|welcome|
 |given user with name           |John          |has role    |mentee |
 |when logging in with name      |John          |and password|welcome|
-|check                          |response      |SUCCESS             |
-|check                          |current user  |John                |
-|check                          |current mentee|John                |
-|check                          |current mentor|NOBODY              |
+|then                           |response      |is          |SUCCESS|
+|then                           |current user  |is          |John   |
+|then                           |current mentee|is          |John   |
+|then                           |current mentor|is          |NOBODY |

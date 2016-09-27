@@ -3,6 +3,6 @@
 |given there is a mentor with name    |Alice                  |who knows|javascript|
 |given there is a mentor with name    |Bob                    |who knows|ruby      |
 |when presenting available mentors for|ruby                                        |
-|check                                |available mentors count|2                   |
+|then                                 |available mentors count|is       |2         |
 |when presenting available mentors for|javascript                                  |
-|check                                |available mentors count|1                   |
+|then                                 |available mentors count|is       |1         |

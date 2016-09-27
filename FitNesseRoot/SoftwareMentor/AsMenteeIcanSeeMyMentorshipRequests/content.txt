@@ -1,7 +1,6 @@
 |script                                                                                    |
-|given there is a mentee with name       |John                                             |
+|given current user is a                 |mentee                      |with name|John      |
 |given there is a mentor with name       |Alice                       |who knows|javascript|
 |given there is a mentorship request from|John                        |to       |Alice     |
-|given user is a mentee with name        |John                                             |
 |when presenting mentorship requests                                                       |
-|check                                   |count of mentorship requests|1                   |
+|then                                    |count of mentorship requests|is       |1         |

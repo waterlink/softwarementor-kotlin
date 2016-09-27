@@ -1,26 +1,29 @@
-It is possible to sign in after successful sign up and confirmation of the email:
+!4 It is possible to sign in after successful sign up and confirmation of the email:
 
-|script                                                                                                                     |
-|when signing up with name      |John                              |and email   |john.smith@example.org|and password|welcome|
-|check                          |response                          |SUCCESS                                                 |
-|check                          |last confirmation email is sent to|john.smith@example.org                                  |
-|$confirmation_code=            |last confirmation email's code                                                             |
-|when confirming email with code|$confirmation_code                                                                         |
-|check                          |response                          |SUCCESS                                                 |
-|when logging in with name      |John                              |and password|welcome                                    |
-|check                          |response                          |SUCCESS                                                 |
-|check                          |current user                      |John                                                    |
-|check                          |current mentee                    |John                                                    |
-|check                          |current mentor                    |NOBODY                                                  |
+|script                                                                                                            |
+|when signing up with name|John                              |and email|john.smith@example.org|and password|welcome|
+|then                     |response                          |is       |SUCCESS                                    |
+|then                     |last confirmation email is sent to|is       |john.smith@example.org                     |
+|then                     |response                          |is       |SUCCESS                                    |
+
+|script                                                       |
+|when confirming email with code from email                   |
+|when logging in with name|John          |and password|welcome|
+|then                     |response      |is          |SUCCESS|
+|then                     |current user  |is          |John   |
+|then                     |current mentee|is          |John   |
+|then                     |current mentor|is          |NOBODY |
 
 
-It is not possible to sign in before the email is confirmed:
+!4 It is not possible to sign in before the email is confirmed:
 
-|script                                                                                      |
-|when signing up with name|Alice         |and email   |alice@example.org|and password|welcome|
-|check                    |response      |SUCCESS                                            |
-|when logging in with name|Alice         |and password|welcome                               |
-|check                    |response      |EMAIL_NOT_CONFIRMED                                |
-|check                    |current user  |NOBODY                                             |
-|check                    |current mentor|NOBODY                                             |
-|check                    |current mentee|NOBODY                                             |
+|script                                                                             |
+|when signing up with name|Alice   |and email|alice@example.org|and password|welcome|
+|then                     |response|is       |SUCCESS                               |
+
+|script                                                                   |
+|when logging in with name|Alice         |and password|welcome            |
+|then                     |response      |is          |EMAIL_NOT_CONFIRMED|
+|then                     |current user  |is          |NOBODY             |
+|then                     |current mentor|is          |NOBODY             |
+|then                     |current mentee|is          |NOBODY             |
