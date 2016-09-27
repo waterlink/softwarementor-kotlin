@@ -3,7 +3,10 @@ package softwarementor.fixtures
 import softwarementor.Context
 import softwarementor.incoming_mentorship_request.PresentIncomingMentorshipRequests
 import softwarementor.incoming_mentorship_request.PresentedIncomingMentorshipRequest
+import softwarementor.login.EmailNotConfirmed
+import softwarementor.login.InvalidNamePassword
 import softwarementor.login.Login
+import softwarementor.login.NeedToSignIn
 import softwarementor.mentee.CurrentMenteeRepository
 import softwarementor.mentee.InMemoryMenteeGateway
 import softwarementor.mentor.*
@@ -12,10 +15,12 @@ import softwarementor.signup.EmailConfirmationService
 import softwarementor.signup.SignUp
 import softwarementor.user.CurrentUserRepository
 import softwarementor.signup.InMemoryUserConfirmationGateway
+import softwarementor.signup.UserAlreadyRegistered
 import softwarementor.user.InMemoryUserGateway
 
-class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixture,
-        LoginFixture, SignUpFixture, IncomingMentorshipRequestFixture {
+class SoftwareMentorFixture : CommandExecutor.FailingCommandHandler, MentorFixture, UserFixture,
+        MentorshipRequestFixture, LoginFixture, SignUpFixture,
+        IncomingMentorshipRequestFixture {
     private val context = Context()
 
     override val presentAvailableMentorsForLanguage = PresentAvailableMentorsForLanguage(context)
@@ -33,15 +38,17 @@ class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixtu
     override val signUp = SignUp(context, emailConfirmationService)
     override val login = Login(context)
     override val currentUserRepository = CurrentUserRepository()
-    override var theResponse = ""
 
     override val userGateway = InMemoryUserGateway()
     override val menteeGateway = InMemoryMenteeGateway()
     override val mentorGateway = InMemoryMentorGateway()
     override val mentorshipRequestGateway = InMemoryMentorshipRequestGateway(context)
-
     override val presentIncomingMentorshipRequests = PresentIncomingMentorshipRequests(context)
+
     override var incomingMentorshipRequests: List<PresentedIncomingMentorshipRequest>? = null
+
+    override val executor = CommandExecutor(this)
+    var theResponse = ""
 
     init {
         context.userGateway = userGateway
@@ -57,5 +64,19 @@ class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixtu
 
     @AcceptanceMethod
     fun response(): String = theResponse
+
+    override fun handleError(exception: Exception) {
+        theResponse = when (exception) {
+            is NeedToSignIn -> "NEED_TO_SIGN_IN"
+            is InvalidNamePassword -> "INVALID_NAME_PASSWORD"
+            is EmailNotConfirmed -> "EMAIL_NOT_CONFIRMED"
+            is UserAlreadyRegistered -> "USER_ALREADY_REGISTERED"
+            else -> "UNEXPECTED_EXCEPTION: ${exception}"
+        }
+    }
+
+    override fun handleSuccess() {
+        theResponse = "SUCCESS"
+    }
 }
 

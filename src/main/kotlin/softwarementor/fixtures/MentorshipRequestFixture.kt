@@ -1,9 +1,8 @@
 package softwarementor.fixtures
 
-import softwarementor.mentor.PresentedMentor
-import softwarementor.login.NeedToSignIn
 import softwarementor.mentee.MenteeGateway
 import softwarementor.mentor.MentorGateway
+import softwarementor.mentor.PresentedMentor
 import softwarementor.mentorship_request.*
 
 interface MentorshipRequestFixture {
@@ -14,10 +13,11 @@ interface MentorshipRequestFixture {
     val availableMentors: List<PresentedMentor>?
 
     val applyForMentorshipWithMentor: ApplyForMentorshipWithMentor
-    var theResponse: String
 
     val presentMentorshipRequests: PresentMentorshipRequests
     var mentorshipRequests: List<PresentedMentorshipRequest>?
+
+    val executor: CommandExecutor
 
     @AcceptanceMethod
     fun givenThereIsAMentorshipRequestFromTo(fromMentee: String, toMentor: String): Boolean {
@@ -35,11 +35,8 @@ interface MentorshipRequestFixture {
     fun whenApplyingForMentorshipWithMentor(mentorName: String): Boolean {
         val mentor = mentorGateway.findByName(mentorName)!!
 
-        try {
+        executor.execute {
             applyForMentorshipWithMentor.applyForMentorshipWith(mentor)
-            theResponse = "SUCCESS"
-        } catch (exception: NeedToSignIn) {
-            theResponse = "NEED_TO_SIGN_IN"
         }
 
         return true
@@ -55,4 +52,3 @@ interface MentorshipRequestFixture {
     fun countOfMentorshipRequests() =
             mentorshipRequests?.count()
 }
-

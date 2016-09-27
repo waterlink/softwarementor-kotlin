@@ -6,40 +6,30 @@ import softwarementor.signup.SignUp
 import softwarementor.signup.UserAlreadyRegistered
 
 interface SignUpFixture {
-    var theResponse: String
-
     val signUp: SignUp
     val emailConfirmationService: EmailConfirmationService
+    val executor: CommandExecutor
 
     @AcceptanceMethod
     fun whenSigningUpWithNameAndEmailAndPassword(name: String, email: String, password: String): Boolean {
-        try {
+        executor.execute {
             signUp.signUpAsMentee(name, email, password)
-            theResponse = "SUCCESS"
-        } catch (exception: UserAlreadyRegistered) {
-            theResponse = "USER_ALREADY_REGISTERED"
         }
         return true
     }
 
     @AcceptanceMethod
     fun whenSigningUpAsMentorWithNameAndEmailAndPassword(name: String, email: String, password: String): Boolean {
-        try {
+        executor.execute {
             signUp.signUpAsMentor(name, email, password)
-            theResponse = "SUCCESS"
-        } catch (exception: UserAlreadyRegistered) {
-            theResponse = "USER_ALREADY_REGISTERED"
         }
         return true
     }
 
     @AcceptanceMethod
     fun whenConfirmingEmailWithCode(confirmationCode: String): Boolean {
-        try {
+        executor.execute {
             signUp.confirm(confirmationCode)
-            theResponse = "SUCCESS"
-        } catch (exception: InvalidConfirmationCode) {
-            theResponse = "INVALID_CONFIRMATION_CODE"
         }
         return true
     }
