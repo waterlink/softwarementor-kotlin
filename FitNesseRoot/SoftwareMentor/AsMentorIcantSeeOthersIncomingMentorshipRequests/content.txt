@@ -1,0 +1,11 @@
+|script                                                                                     |
+|given there is a user with name         |Alice                                             |
+|given there is a user with name         |Bob                                               |
+|given there is a user with name         |Josh                                              |
+|given user with name                    |Alice                             |has role|mentor|
+|given user with name                    |Bob                               |has role|mentor|
+|given user with name                    |Josh                              |has role|mentee|
+|given there is a mentorship request from|Josh                              |to      |Bob   |
+|given user is a mentor with name        |Alice                                             |
+|when presenting incoming mentorship requests                                               |
+|check                                   |incoming mentorship requests count|0              |

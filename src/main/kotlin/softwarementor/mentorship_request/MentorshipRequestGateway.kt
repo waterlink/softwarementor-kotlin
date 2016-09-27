@@ -7,4 +7,6 @@ interface MentorshipRequestGateway {
 
     fun findByMenteeName(menteeName: String): List<MentorshipRequest>
 
+    fun findByMentorName(mentorName: String): List<MentorshipRequest>
+
 }

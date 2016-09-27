@@ -1,10 +1,13 @@
 package softwarementor.incoming_mentorship_request
 
-import softwarementor.incoming_mentorship_request.PresentedIncomingMentorshipRequest
+import softwarementor.Context
 
-class PresentIncomingMentorshipRequests {
+class PresentIncomingMentorshipRequests(private val context: Context) {
     fun presentIncomingMentorshipRequests(): List<PresentedIncomingMentorshipRequest> {
-        return emptyList()
+        val mentor = context.currentMentorRepository.currentMentor!!
+        return context.mentorshipRequestGateway.findByMentorName(mentor.name).map {
+            PresentedIncomingMentorshipRequest()
+        }
     }
 
 }

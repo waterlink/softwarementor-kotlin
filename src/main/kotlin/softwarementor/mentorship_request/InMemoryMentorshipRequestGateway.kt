@@ -12,9 +12,11 @@ class InMemoryMentorshipRequestGateway(private val context: Context) : Mentorshi
     override fun findAll() = entities
             .map { it.constructMentorshipRequest(context) }
 
-    override fun findByMenteeName(menteeName: String) = entities
-            .filter { it.menteeName == menteeName }
-            .map { it.constructMentorshipRequest(context) }
+    override fun findByMenteeName(menteeName: String) =
+            findAll().filter { it.mentee.name == menteeName }
+
+    override fun findByMentorName(mentorName: String) =
+            findAll().filter { it.mentor.name == mentorName }
 
     class MentorshipRequestStoredInMemory(mentorshipRequest: MentorshipRequest) {
         val menteeName = mentorshipRequest.mentee.name

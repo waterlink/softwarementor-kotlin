@@ -40,7 +40,7 @@ class SoftwareMentorFixture : MentorFixture, UserFixture, MentorshipRequestFixtu
     override val mentorGateway = InMemoryMentorGateway()
     override val mentorshipRequestGateway = InMemoryMentorshipRequestGateway(context)
 
-    override val presentIncomingMentorshipRequests = PresentIncomingMentorshipRequests()
+    override val presentIncomingMentorshipRequests = PresentIncomingMentorshipRequests(context)
     override var incomingMentorshipRequests: List<PresentedIncomingMentorshipRequest>? = null
 
     init {
