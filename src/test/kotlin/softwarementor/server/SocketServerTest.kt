@@ -20,11 +20,12 @@ class SocketServerTest {
 
     private lateinit var server: SocketServer
 
-    private var port: Int = -1
+    private val RANDOM_PORT = 0
+    private var port = RANDOM_PORT
 
     @Before
     fun setUp() {
-        server = SocketServer(executorService, 0)
+        server = SocketServer(executorService, port)
         port = server.localPort
     }
 
