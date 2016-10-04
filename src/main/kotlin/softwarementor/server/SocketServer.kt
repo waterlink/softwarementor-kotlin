@@ -1,7 +1,6 @@
 package softwarementor.server
 
 import java.net.ServerSocket
-import java.net.Socket
 import java.net.SocketException
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.TimeUnit
@@ -12,7 +11,7 @@ class SocketServer(private val executorService: ExecutorService, port: Int) {
     val localPort: Int
         get() = server.localPort
 
-    fun start(connectionHandler: (Socket) -> Unit) {
+    fun start(connectionHandler: ConnectionHandler) {
         executorService.execute {
             whileReturnsTrue {
                 handleNextConnection(connectionHandler)
@@ -20,19 +19,27 @@ class SocketServer(private val executorService: ExecutorService, port: Int) {
         }
     }
 
-    private fun handleNextConnection(connectionHandler: (Socket) -> Unit): Boolean {
-        val socket = acceptConnection() ?: return false
+    fun start(function: (ClientConnection) -> Unit) {
+        start(object : ConnectionHandler {
+            override fun handle(clientConnection: ClientConnection) {
+                function(clientConnection)
+            }
+        })
+    }
+
+    private fun handleNextConnection(connectionHandler: ConnectionHandler): Boolean {
+        val clientConnection = acceptConnection() ?: return false
 
         executorService.execute {
-            connectionHandler(socket)
+            connectionHandler.handle(clientConnection)
         }
 
         return true
     }
 
-    private fun acceptConnection(): Socket? {
+    private fun acceptConnection(): ClientConnection? {
         try {
-            return server.accept()
+            return StockClientConnection(server.accept())
         } catch (socketException: SocketException) {
             System.err.printf("Got error: %s\n Shutting down\n", socketException)
             return null

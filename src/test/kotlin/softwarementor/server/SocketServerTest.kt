@@ -64,8 +64,8 @@ class SocketServerTest {
     @Test
     fun echoServer() {
         server.start {
-            val message = it.inputStream.bufferedReader().readLine()
-            val writer = it.outputStream.writer()
+            val message = it.reader().readLine()
+            val writer = it.writer()
             writer.write(message + "\n")
             writer.flush()
         }
@@ -79,7 +79,8 @@ class SocketServerTest {
         assertThat(message).isEqualTo("hello world")
     }
 
-    private fun withNotification(connectionHandler: (socket: Socket) -> Unit): (socket: Socket) -> Unit {
+    private fun withNotification(connectionHandler: (clientConnection: ClientConnection) -> Unit):
+            (clientConnection: ClientConnection) -> Unit {
         return {
             synchronized(lock) {
                 connectionHandler(it)
