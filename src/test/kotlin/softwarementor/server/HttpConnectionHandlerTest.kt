@@ -4,7 +4,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.io.*
 import java.net.URI
-import java.nio.CharBuffer
 
 class HttpConnectionHandlerTest {
     private lateinit var connectionHandler: HttpConnectionHandler
@@ -405,11 +404,31 @@ class HttpConnectionHandlerTest {
     }
 
     @Test
+    fun `fails when Content-Length is not a number`() {
+        connectionHandler = HttpConnectionHandler { "ok" }
+
+        val response = makeRequest("POST / HTTP/1.1\r\n" +
+                "Host: example.org\r\n" +
+                "Content-Length: 12blga\r\n")
+
+        assertThat(response)
+                .isEqualTo("HTTP/1.1 400 Bad Request\r\n" +
+                        "Content-Type: text/plain\r\n" +
+                        "Content-Length: 51\r\n" +
+                        "\r\n" +
+                        "HTTP Content-Length header has to be a valid number")
+    }
+
+    @Test
     fun TODO_CHECK_ALL_TO_INTS() {
     }
 
     @Test
     fun TODO_CHECK_DISCARDED_CRLF() {
+    }
+
+    @Test
+    fun TODO_CHECK_MAX_REQUEST_BODY() {
     }
 
     private fun makeRequest(input: String): String {
@@ -497,14 +516,22 @@ class HttpConnectionHandler(private val requestHandler: (HttpRequest) -> String)
             return body
 
         } else {
+            val contentLength = parseContentLength(headers)
             val body = reader.readText()
 
-            val contentLength = headers["Content-Length"]
-            if (contentLength != null && contentLength.toInt() != body.length) {
+            if (contentLength != null && contentLength != body.length) {
                 throw BadRequestError("HTTP request body length has to match Content-Length")
             }
 
             return body
+        }
+    }
+
+    private fun parseContentLength(headers: MutableMap<String, String>): Int? {
+        try {
+            return headers["Content-Length"]?.toInt()
+        } catch(e: Exception) {
+            throw BadRequestError("HTTP Content-Length header has to be a valid number")
         }
     }
 
@@ -589,9 +616,7 @@ class Headers(private val map: MutableMap<String, String>) :
 
 }
 
-class BadRequestError(message: String) : Exception(message) {
-
-}
+class BadRequestError(message: String) : Exception(message)
 
 class HttpRequest(
         val method: String,
